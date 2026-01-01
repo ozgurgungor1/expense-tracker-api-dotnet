@@ -1,36 +1,22 @@
-using Microsoft.AspNetCore.Mvc;
-using ExpenseTracker.Api.Models;
-using ExpenseTracker.Api.Dtos;
-
-namespace ExpenseTracker.Api.Controllers;
-
-[ApiController]
-[Route("api/expenses")]
-public class ExpensesController : ControllerBase
+[HttpPost]
+public IActionResult Create(CreateExpenseDto dto)
 {
-    private static readonly List<Expense> Expenses = new();
-
-    [HttpGet]
-    public IActionResult GetAll()
+    if (!ModelState.IsValid)
     {
-        return Ok(Expenses);
+        return BadRequest(ModelState);
     }
 
-    [HttpPost]
-    public IActionResult Create(CreateExpenseDto dto)
+    var expense = new Expense
     {
-        var expense = new Expense
-        {
-            Id = Guid.NewGuid(),
-            Title = dto.Title,
-            Amount = dto.Amount,
-            Date = dto.Date,
-            Category = dto.Category,
-            Description = dto.Description
-        };
+        Id = Guid.NewGuid(),
+        Title = dto.Title,
+        Amount = dto.Amount,
+        Date = dto.Date,
+        Category = dto.Category,
+        Description = dto.Description
+    };
 
-        Expenses.Add(expense);
+    Expenses.Add(expense);
 
-        return CreatedAtAction(nameof(GetAll), expense);
-    }
+    return CreatedAtAction(nameof(GetAll), expense);
 }
