@@ -7,3 +7,14 @@ Backend REST API for managing personal and business expenses.
 - ASP.NET Core Web API
 - Entity Framework Core
 - PostgreSQL
+
+
+# Job Portal API
+
+Backend REST API for a job posting and application platform.
+
+## Tech Stack
+- Python
+- FastAPI
+- SQLAlchemy
+- PostgreSQL
